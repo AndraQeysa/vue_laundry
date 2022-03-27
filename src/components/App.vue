@@ -3,15 +3,6 @@
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
-        <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-        <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-            </div>
-        </form>
         <!-- Navbar-->
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <li class="nav-item dropdown">
@@ -30,15 +21,40 @@
                     <div class="nav">
                         <router-link class="nav-link" to="/">
                             <div class="sb-nav-link-icon">
-                                <i class="fas fa-tachometer-alt"></i>
+                                <i class="fa-solid fa-house"></i>
                             </div>
                             Home
                         </router-link>
-                        <router-link class="nav-link collapsed" to="/member" v-if="role === 'admin'">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        <router-link class="nav-link collapsed" to="/member" v-if="role !== 'owner'">
+                            <div class="sb-nav-link-icon">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
                             Member
                         </router-link>
-
+                        <router-link class="nav-link collapsed" to="/user" v-if="role === 'admin'">
+                            <div class="sb-nav-link-icon">
+                                <i class="fa-solid fa-clipboard-user"></i>
+                            </div>
+                            User
+                        </router-link>
+                        <router-link class="nav-link collapsed" to="/paket" v-if="role === 'admin'">
+                            <div class="sb-nav-link-icon">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </div>
+                            Paket
+                        </router-link>
+                        <router-link class="nav-link collapsed" to="/outlet" v-if="role === 'admin'">
+                            <div class="sb-nav-link-icon">
+                                <i class="fa-solid fa-building"></i>
+                            </div>
+                            Outlet
+                        </router-link>
+                        <router-link class="nav-link collapsed" to="/transaksi">
+                            <div class="sb-nav-link-icon">
+                                <i class="fa-solid fa-money-check-dollar"></i>
+                            </div>
+                            Transaksi
+                        </router-link>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">

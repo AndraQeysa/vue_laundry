@@ -1,11 +1,10 @@
 <template>
-    <div>
-        <h1>HOME</h1>
-    </div>
+  <div>
+    <a href="https://youtu.be/Cwcinb2OxUo"
+      ><h1>I'm Vengeance</h1></a
+    >
+  </div>
 </template>
 <script>
-module.exports =  {
-
-
-}
+module.exports = {};
 </script>

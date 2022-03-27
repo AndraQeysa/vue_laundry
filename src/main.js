@@ -3,15 +3,40 @@ var base_url = "http://localhost:8000/api";
 //konfigurasi route
 var router = [
     {   
-        path: "/", 
-        name: "Home", 
-        component: httpVueLoader("./src/components/Home.vue")
+      path: "/", 
+      name: "Home", 
+      component: httpVueLoader("./src/components/Home.vue")
     },
     {   
-        path: "/member", 
-        name: "Member", 
-        component: httpVueLoader("./src/components/Member.vue")
+      path: "/member", 
+      name: "Member", 
+      component: httpVueLoader("./src/components/Member.vue")
     },
+    {
+      path: "/outlet",
+      name: "Outlet",
+      component: httpVueLoader("./src/components/Outlet.vue")
+    }, 
+    {
+      path: "/user",
+      name: "User",
+      component: httpVueLoader("./src/components/User.vue")
+    },
+    {
+      path: "/paket",
+      name: "Paket",
+      component: httpVueLoader("./src/components/Paket.vue")
+    },
+    {
+      path: "/transaksi",
+      name: "Transaksi",
+      component: httpVueLoader("./src/components/Transaksi.vue")
+    },
+    {
+      path: "/tambah-transaksi",
+      name: "TambahTransaksi",
+      component: httpVueLoader("./src/components/TambahTransaksi.vue")
+    }
 
 ];
 
