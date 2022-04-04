@@ -29,13 +29,13 @@
           <div class="card">
             <div class="card-body">
               <div class="table-responsive">
-                  <b-button @click="addItem" size="sm" variant="warning"><i class="mdi mdi-plus btn-icon-prepend"></i> Tambah Item</b-button>
+                  <b-button @click="addItem" size="md" variant="warning"><i class="mdi mdi-plus btn-icon-prepend"></i> Tambah Item</b-button>
                   <br></br>
                   <div class="row" v-for="(detail, counter) in detail_transaksi"
                   v-bind:key="counter">
                   <br></br>
                     <div class="col-md-2">
-                      <b-button variant="danger" size="sm" @click="deleteItem(counter)">Hapus</b-button>
+                      <b-button variant="danger" size="md" @click="deleteItem(counter)">Hapus</b-button>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
@@ -48,9 +48,9 @@
                       </div>
                     </div>
                   </div>
-                  <br><br>
+                  <br><br>  
                   <router-link to="/transaksi">
-                    <b-button @click="Save" block squared size="lg" variant="success">Submit</b-button>
+                    <b-button @click="Save" size="lg" variant="success">Submit</b-button>
                   </router-link>
 
                 <!-- toast untuk tampilan message box -->
@@ -145,16 +145,14 @@ module.exports = {
           axios.post(base_url + "/transaksi", form, conf)
           .then(response2 => {
             if(response2.data.success == true){
-                this.message = response2.data.message;
-                this.$bvToast.show("message");
+              Swal.fire(response2.data.message);
                 this.id_user = "";
                 this.id_member = "";
                 this.tgl = "";
                 this.lama_pengerjaan = "";
                 this.detail_transaksi = [];
             } else {
-              this.message = "Pastikan data terisi lengkap!.";
-              this.$bvToast.show("message");
+              Swal.fire(response.data.message);
             }
            
           })

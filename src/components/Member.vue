@@ -57,7 +57,6 @@
           <input
             v-model="nama"
             placeholder="Masukkan Nama Member"
-            v-modal="nama"
             id="inputNama"
             class="form-control"
             type="text"
@@ -68,7 +67,6 @@
           <input
             v-model="tlp"
             placeholder="Masukkan Nomor Telepon Member"
-            v-modal="tlp"
             id="inputTlp"
             class="form-control"
             type="text"
@@ -88,7 +86,6 @@
           <input
             v-model="alamat"
             placeholder="Masukkan Alamat Member"
-            v-modal="alamat"
             id="inputAlamat"
             class="form-control"
             type="text"
@@ -124,6 +121,8 @@ module.exports = {
         console.log(response);
         if (response.data.success == true) {
           this.member = response.data.data.member;
+        } else {
+          location.reload();
         }
       });
     },
@@ -159,34 +158,52 @@ module.exports = {
 
       //logika method post/get (insert /update)
       if (this.action == "insert") {
-        axios.post(base_url + "/member", form, config).then((response) => {
-          alert(response.data.message);
-        });
+        axios
+          .post(base_url + "/member", form, config)
+          .then((response) => {
+            Swal.fire(response.data.message);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
         //update
         axios
           .put(base_url + "/member/" + this.id_member, form, config)
           .then((response) => {
-            alert(response.data.message);
+            Swal.fire(response.data.message);
+          })
+          .catch((error) => {
+            console.log(error);
           });
       }
 
       this.getData();
     },
     Delete: function (id) {
-      if (confirm("Apakah anda yakin menghapus data member ini?")) {
-        let config = {
-          headers: {
-            Authorization: "Bearer " + this.$cookies.get("Authorization"),
-          },
-        };
+      Swal.fire({
+        title: "Apakah Anda Yakin Ingin Menghapus Data Ini?",
+        text: "Data akan dihapus secara permanen dan tidak dapat dikembalikan",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Hapus",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let config = {
+            headers: {
+              Authorization: "Bearer " + this.$cookies.get("Authorization"),
+            },
+          };
 
-        axios.delete(base_url + "/member/" + id, config).then((response) => {
-          alert(response.data.message);
-        });
+          axios.delete(base_url + "/member/" + id, config).then((response) => {
+            Swal.fire(response.data.message);
+          });
 
-        this.getData();
-      }
+          this.getData();
+        }
+      });
     },
   },
   mounted() {

@@ -9,7 +9,7 @@
               <p class="card-description float-right" v-if="role !== 'owner'">
                 <router-link
                   to="/tambah-transaksi"
-                  class="nav-link btn btn-sm btn-success btn-icon-text"
+                  class="nav nav-link btn btn-md btn-success text-white text-md"
                 >
                   <i class="mdi mdi-plus btn-icon-prepend"></i>
                   <span class="menu-title">Tambah</span>
@@ -235,13 +235,15 @@ module.exports = {
         tgl: this.tgl,
       };
       axios
-        .post(base_url + "/transaksi/report", form, conf)
-        .then((response) => {
-          this.transaksi = response.data.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      .post(base_url + "/transaksi/report", form, conf)
+      .then((response) => {
+        this.transaksi = response.data.data;
+        
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      
     },
     changeStatus: function (id_transaksi, event) {
       let conf = { headers: { Authorization: "Bearer " + this.key } };
@@ -253,8 +255,7 @@ module.exports = {
         .put(base_url + "/transaksi/status", form, conf)
         .then((response) => {
           this.getData();
-          this.message = response.data.message;
-          this.$bvToast.show("message");
+          Swal.fire(response.data.message);
         })
         .catch((error) => {
           console.log(error);
@@ -271,7 +272,7 @@ module.exports = {
         .then((response) => {
           this.getData();
           this.message = response.data.message;
-          this.$bvToast.show("message");
+          Swal.fire(response.data.message);
         })
         .catch((error) => {
           console.log(error);
@@ -314,7 +315,7 @@ module.exports = {
       WinPrint.print();
       WinPrint.close();
     },
-  },
+  },  
   mounted() {
     this.key = this.$cookies.get("Authorization");
     this.authenticate();
