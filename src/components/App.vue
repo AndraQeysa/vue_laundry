@@ -2,7 +2,7 @@
   <div>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
       <!-- Navbar Brand-->
-      <a class="navbar-brand ps-3" href="index.html">MI Laundry</a>
+      <a class="navbar-brand ps-3" href="index.html">KULONDRE</a>
       <!-- Navbar-->
       <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item dropdown">
@@ -102,7 +102,7 @@
             <div
               class="d-flex align-items-center justify-content-between small"
             >
-              <div class="text-muted">Copyright &copy; Your Website 2021</div>
+              <div class="text-muted">Copyright &copy; AndraQeysa 2022</div>
               <div>
                 <a href="#">Privacy Policy</a>
                 &middot;
