@@ -108,7 +108,7 @@
                       size="sm"
                       class="btn btn-sm btn-warning btn-icon-text"
                       v-on:click="
-                        Detail(data.item.detail_transaksi, data.item.total)
+                        Detail(data.item, data.item.total)
                       "
                       v-b-modal.modal-detail
                     >
@@ -131,6 +131,7 @@
       </div>
     </div>
 
+    <!-- design nota -->
     <b-modal
       id="modal-detail"
       ref="modal"
@@ -138,12 +139,39 @@
       size="md"
       hide-footer="true"
     >
-      <a href="#" @click="Prints()">print</a>
-      <div class="table-responsive table table-stripped" id="print">
+      <div class="table-responsive table table-sm table-stripped" id="print">
+        <table class="table  table-bordered table-responsive p-3">
+          <tr class="">
+            <td>ID Order</td>
+            <td>:</td>
+            <td>{{ detail_transaksi.id_transaksi }}</td>
+            <td>Nama Member</td>
+            <td>:</td>
+            <td>{{ detail_transaksi.nama_member }}</td>
+          </tr>
+          <tr>
+            <td>Nama Kasir</td>
+            <td>:</td>
+            <td>{{ detail_transaksi.kasir }}</td>
+            <td>Pembayaran</td>
+            <td>:</td>
+            <td>{{ detail_transaksi.dibayar }}</td>
+          </tr>
+          <tr>
+            <td>TGL Transaksi</td>
+            <td>:</td>
+            <td>{{ detail_transaksi.tgl }}</td>
+            <td>TGL Bayar</td>
+            <td>:</td>
+            <td>{{ detail_transaksi.tgl_bayar }}</td>
+          </tr>
+        </table>
+        <hr />
+        <br />
         <b-table
           striped
           hover
-          :items="detail_transaksi"
+          :items="detail_transaksi.detail_transaksi"
           :fields="fields_detail_transaksi"
         >
         </b-table>
@@ -151,27 +179,7 @@
           <h4>Total: Rp{{ total }}</h4>
         </div>
       </div>
-    </b-modal>
-
-    <b-modal
-      id="modal-recipe"
-      ref="modal"
-      title="Nota Pemesanan"
-      size="md"
-      hide-footer="true"
-    >
-      <div class="table-responsive">
-        <b-table
-          striped
-          hover
-          :items="detail_transaksi"
-          :fields="fields_detail_transaksi"
-        >
-        </b-table>
-        <div class="text-right">
-          <h4>Total: Rp{{ total }}</h4>
-        </div>
-      </div>
+      <a href="#" @click="Prints()" class="btn btn-info">Cetak Nota</a>
     </b-modal>
   </div>
 </template>
@@ -208,6 +216,7 @@ module.exports = {
   },
 
   methods: {
+    // check token
     authenticate: function () {
       if (this.$cookies.isKey("Authorization")) {
         let conf = {
@@ -227,6 +236,8 @@ module.exports = {
         location.reload();
       }
     },
+
+    // mengambil data berdasarkan bulan/tahun
     getData: function () {
       let conf = { headers: { Authorization: "Bearer " + this.key } };
       let form = {
@@ -235,16 +246,16 @@ module.exports = {
         tgl: this.tgl,
       };
       axios
-      .post(base_url + "/transaksi/report", form, conf)
-      .then((response) => {
-        this.transaksi = response.data.data;
-        
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-      
+        .post(base_url + "/transaksi/report", form, conf)
+        .then((response) => {
+          this.transaksi = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
+
+    //mengganti status
     changeStatus: function (id_transaksi, event) {
       let conf = { headers: { Authorization: "Bearer " + this.key } };
       let form = {
@@ -261,6 +272,8 @@ module.exports = {
           console.log(error);
         });
     },
+
+    //menganti bayar
     changeBayar: function (id_transaksi, event) {
       let conf = { headers: { Authorization: "Bearer " + this.key } };
       let form = {
@@ -278,6 +291,8 @@ module.exports = {
           console.log(error);
         });
     },
+
+    //data detail
     Detail: function (detail_transaksi, total) {
       this.total = total;
       this.detail_transaksi = detail_transaksi;
@@ -312,10 +327,10 @@ module.exports = {
 
       WinPrint.document.close();
       WinPrint.focus();
-      WinPrint.print();
-      WinPrint.close();
+      // WinPrint.print();
+      // WinPrint.close();
     },
-  },  
+  },
   mounted() {
     this.key = this.$cookies.get("Authorization");
     this.authenticate();
